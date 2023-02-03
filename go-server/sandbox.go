@@ -126,8 +126,23 @@ func playWithDucks() {
 	// fmt.Println(otherDucky)
 }
 
-func whyDidTheSeniorEngineerQuitBecauseHeDidntGetArrays() {
+func whyDidTheSeniorEngineerQuit() {
+	punchline := []string{"because", "he", "didn't", "get", "arrays"}
 
+	// slices do not store any data, they just point to the array of origin
+	punch := punchline[:2:4]
+
+	for i := 0; i < len(punch); i++ {
+		fmt.Print(punch[i] + " ")
+	}
+
+	fmt.Println()
+
+	for i := 0; i < cap(punch); i++ {
+		fmt.Print(punchline[i] + " ")
+	}
+
+	fmt.Println()
 }
 
 // var c, python, java bool
@@ -147,5 +162,5 @@ func main() {
 	// fmt.Println(whenIsFriday())
 	// defer fmt.Println("Go runs on", goOperatingSystem())
 	// printTimeOfDay()
-	playWithDucks()
+	whyDidTheSeniorEngineerQuit()
 }
