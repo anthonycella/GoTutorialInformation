@@ -105,7 +105,9 @@ func playWithDucks() {
 	printDuckInfo(ducky)
 	fmt.Println()
 
-	ducky.kill()
+	deadDucky := &ducky
+
+	deadDucky.kill()
 	printDuckInfo(ducky)
 	fmt.Println()
 }
