@@ -97,19 +97,37 @@ func usePointers() {
 }
 
 func playWithDucks() {
-	ducky := RubberDuck{"bob", "purple", 3, false}
-	printDuckInfo(ducky)
-	fmt.Println()
+	var ducks [10]RubberDuck
 
-	ducky.makeJavaScript()
-	printDuckInfo(ducky)
-	fmt.Println()
+	for i := 0; i < len(ducks); i++ {
+		ducky := &ducks[i]
+		ducky.fillDefaults()
+	}
 
-	deadDucky := &ducky
+	for j := 0; j < len(ducks); j++ {
+		printDuckInfo(ducks[j])
+	}
+	// ducky := RubberDuck{}
+	// ducky.fillDefaults()
+	// printDuckInfo(ducky)
+	// fmt.Println()
 
-	deadDucky.kill()
-	printDuckInfo(ducky)
-	fmt.Println()
+	// ducky.makeJavaScript()
+	// printDuckInfo(ducky)
+	// fmt.Println()
+
+	// deadDucky := &ducky
+
+	// deadDucky.kill()
+	// printDuckInfo(ducky)
+	// fmt.Println()
+
+	// otherDucky := &RubberDuck{name: "unknown"}
+	// fmt.Println(otherDucky)
+}
+
+func whyDidTheSeniorEngineerQuitBecauseHeDidntGetArrays() {
+
 }
 
 // var c, python, java bool

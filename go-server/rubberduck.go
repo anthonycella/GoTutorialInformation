@@ -1,12 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type RubberDuck struct {
 	name         string
 	color        string
 	age          int
 	isJavaScript bool
+}
+
+func (rubberDuck *RubberDuck) fillDefaults() {
+	names := [5]string{"jack", "jill", "billy", "bob", "joe"}
+	colors := [7]string{"black", "blue", "white", "yellow", "gray", "purple", "green"}
+
+	nameChosenIndex := rand.Int() % 5
+	// fmt.Println("Name number is", nameChosenIndex)
+
+	colorChosenIndex := rand.Int() % 7
+	// fmt.Println("Color number is", colorChosenIndex)
+
+	nameChosen := names[nameChosenIndex]
+	colorChosen := colors[colorChosenIndex]
+	ageChosen := rand.Int() % 21
+
+	rubberDuck.name = nameChosen
+	rubberDuck.color = colorChosen
+	rubberDuck.age = ageChosen
+
+	rubberDuck.isJavaScript = false
 }
 
 func (rubberDuck *RubberDuck) makeJavaScript() {
@@ -45,9 +69,14 @@ func (rubberDuck *RubberDuck) isBaby() {
 }
 
 func (rubberDuck *RubberDuck) printAge() {
-	if rubberDuck.isDead() {
+	switch {
+	case rubberDuck.isDead():
 		fmt.Println("I am dead")
-	} else {
+	case rubberDuck.age == 1:
+		fmt.Println("I am", rubberDuck.age, "year old")
+	case rubberDuck.age == 0:
+		fmt.Println("I am a newborn ducky")
+	default:
 		fmt.Println("I am", rubberDuck.age, "years old")
 	}
 }
@@ -60,7 +89,7 @@ func printDuckInfo(rubberDuck RubberDuck) {
 	if rubberDuck.isJavaScript && !rubberDuck.isDead() {
 		fmt.Println("And I am the chosen one")
 	} else {
-		fmt.Println("And that's it.")
+		fmt.Print("And that's it.\n\n")
 	}
 }
 
