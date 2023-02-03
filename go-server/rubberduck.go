@@ -16,8 +16,13 @@ func (rubberDuck *RubberDuck) makeJavaScript() {
 	rubberDuck.age = 0
 }
 
+func (rubberDuck *RubberDuck) isDead() bool {
+	return rubberDuck.age > 20
+}
+
 func (rubberDuck *RubberDuck) kill() {
 	rubberDuck.age = 21
+	rubberDuck.color = "gone"
 }
 
 func (rubberDuck *RubberDuck) makeAngry() {
@@ -40,9 +45,7 @@ func (rubberDuck *RubberDuck) isBaby() {
 }
 
 func (rubberDuck *RubberDuck) printAge() {
-	currentAge := rubberDuck.age
-
-	if currentAge > 20 {
+	if rubberDuck.isDead() {
 		fmt.Println("I am dead")
 	} else {
 		fmt.Println("I am", rubberDuck.age, "years old")
@@ -51,7 +54,14 @@ func (rubberDuck *RubberDuck) printAge() {
 
 func printDuckInfo(rubberDuck RubberDuck) {
 	fmt.Println("Hi! My name is", rubberDuck.name)
+	rubberDuck.printAge()
+	fmt.Println("My feathers are", rubberDuck.color)
 
+	if rubberDuck.isJavaScript && !rubberDuck.isDead() {
+		fmt.Println("And I am the chosen one")
+	} else {
+		fmt.Println("And that's it.")
+	}
 }
 
 func (rubberDuck *RubberDuck) growUp() {

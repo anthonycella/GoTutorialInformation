@@ -83,6 +83,33 @@ func whenIsFriday() string {
 	}
 }
 
+func usePointers() {
+	firstNumber := 90
+	pointerNumber := &firstNumber
+
+	fmt.Println("First number is", firstNumber)
+	fmt.Println("Pointer number is", *pointerNumber)
+
+	*pointerNumber = 232023
+
+	fmt.Println("First number is", firstNumber)
+	fmt.Println("Pointer number is", *pointerNumber)
+}
+
+func playWithDucks() {
+	ducky := RubberDuck{"bob", "purple", 3, false}
+	printDuckInfo(ducky)
+	fmt.Println()
+
+	ducky.makeJavaScript()
+	printDuckInfo(ducky)
+	fmt.Println()
+
+	ducky.kill()
+	printDuckInfo(ducky)
+	fmt.Println()
+}
+
 // var c, python, java bool
 // var c, python, java = true, false, "no!"
 
@@ -100,12 +127,5 @@ func main() {
 	// fmt.Println(whenIsFriday())
 	// defer fmt.Println("Go runs on", goOperatingSystem())
 	// printTimeOfDay()
-
-	fmt.Println("counting")
-
-	for i := 0; i < 10; i++ {
-		defer fmt.Println(i)
-	}
-
-	fmt.Println("done")
+	playWithDucks()
 }
