@@ -96,35 +96,93 @@ func usePointers() {
 	fmt.Println("Pointer number is", *pointerNumber)
 }
 
-// func playWithDucks() {
-// 	var ducks [10]RubberDuck
+func playWithDucks() {
+	var ducks [10]RubberDuck
 
-// 	for i := 0; i < len(ducks); i++ {
-// 		ducky := &ducks[i]
-// 		ducky.fillDefaults()
-// 	}
+	for i := 0; i < len(ducks); i++ {
+		ducky := &ducks[i]
+		ducky.fillDefaults()
+	}
 
-// 	for j := 0; j < len(ducks); j++ {
-// 		printDuckInfo(ducks[j])
-// 	}
-// 	// ducky := RubberDuck{}
-// 	// ducky.fillDefaults()
-// 	// printDuckInfo(ducky)
-// 	// fmt.Println()
+	for j := 0; j < len(ducks); j++ {
+		printDuckInfo(ducks[j])
+	}
+	ducky := RubberDuck{}
+	ducky.fillDefaults()
+	printDuckInfo(ducky)
+	fmt.Println()
 
-// 	// ducky.makeJavaScript()
-// 	// printDuckInfo(ducky)
-// 	// fmt.Println()
+	ducky.makeJavaScript()
+	printDuckInfo(ducky)
+	fmt.Println()
 
-// 	// deadDucky := &ducky
+	deadDucky := &ducky
 
-// 	// deadDucky.kill()
-// 	// printDuckInfo(ducky)
-// 	// fmt.Println()
+	deadDucky.kill()
+	printDuckInfo(ducky)
+	fmt.Println()
 
-// 	// otherDucky := &RubberDuck{name: "unknown"}
-// 	// fmt.Println(otherDucky)
-// }
+	otherDucky := &RubberDuck{name: "unknown"}
+	fmt.Println(*otherDucky)
+}
+
+func mapTheDucks() {
+	var ducks [10]RubberDuck
+
+	for i := 0; i < len(ducks); i++ {
+		ducky := &ducks[i]
+		ducky.fillDefaults()
+	}
+
+	// fmt.Println(ducks)
+
+	mapOfDucks := make(map[string]RubberDuck)
+
+	for _, duck := range ducks {
+		mapOfDucks[duck.name] = duck
+	}
+
+	// fmt.Println(mapOfDucks)
+
+	mapOfDucks = map[string]RubberDuck{
+		"JavaScript": {"JavaScript", "yellow", 0, true},
+		"DuckyMoMo":  {"DuckyMoMo", "yellow", 2, false},
+		"Wilbur":     {"Wilbur", "pink", 21, false},
+		"DuckJr":     {"DuckJr", "white", 12, false},
+	}
+
+	fmt.Println(mapOfDucks)
+
+	mapOfDucks["DuckyMoMo"] = RubberDuck{"Fred", "green", 4, false}
+	fmt.Println(mapOfDucks)
+
+	fred := mapOfDucks["DuckyMoMo"]
+
+	fmt.Println(fred)
+
+	elem, ok := mapOfDucks["fred"]
+
+	if ok == false {
+		fmt.Println("Fred is not in the map under Fred")
+	} else {
+		fmt.Println("Fred is in the map", elem)
+	}
+
+	elem, ok = mapOfDucks["DuckyMoMo"]
+
+	if ok {
+		fmt.Println("Fred is in the map under Ducky MoMo")
+	} else {
+		fmt.Println("Fred is not in the map at all")
+	}
+
+	delete(mapOfDucks, "DuckyMoMo")
+
+	fmt.Println(mapOfDucks)
+
+	mapOfDucks["Fred"] = fred
+	fmt.Println(mapOfDucks)
+}
 
 func printBoard(queensBoard [9][9]int) {
 	for i := 0; i < len(queensBoard); i++ {
@@ -246,5 +304,6 @@ func main() {
 	// for i := 0; i < len(shoppingList); i++ {
 	// 	fmt.Println(shoppingList[i])
 	// }
-	whyDidTheSeniorEngineerQuit()
+	// whyDidTheSeniorEngineerQuit()
+	mapTheDucks()
 }
