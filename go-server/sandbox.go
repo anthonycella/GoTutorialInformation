@@ -96,41 +96,67 @@ func usePointers() {
 	fmt.Println("Pointer number is", *pointerNumber)
 }
 
-func playWithDucks() {
-	var ducks [10]RubberDuck
+// func playWithDucks() {
+// 	var ducks [10]RubberDuck
 
-	for i := 0; i < len(ducks); i++ {
-		ducky := &ducks[i]
-		ducky.fillDefaults()
+// 	for i := 0; i < len(ducks); i++ {
+// 		ducky := &ducks[i]
+// 		ducky.fillDefaults()
+// 	}
+
+// 	for j := 0; j < len(ducks); j++ {
+// 		printDuckInfo(ducks[j])
+// 	}
+// 	// ducky := RubberDuck{}
+// 	// ducky.fillDefaults()
+// 	// printDuckInfo(ducky)
+// 	// fmt.Println()
+
+// 	// ducky.makeJavaScript()
+// 	// printDuckInfo(ducky)
+// 	// fmt.Println()
+
+// 	// deadDucky := &ducky
+
+// 	// deadDucky.kill()
+// 	// printDuckInfo(ducky)
+// 	// fmt.Println()
+
+// 	// otherDucky := &RubberDuck{name: "unknown"}
+// 	// fmt.Println(otherDucky)
+// }
+
+func printBoard(queensBoard [9][9]int) {
+	for i := 0; i < len(queensBoard); i++ {
+		currentLine := queensBoard[i]
+		fmt.Println(currentLine)
+	}
+}
+
+func matrixTime() {
+	queensBoard := [9][9]int{}
+	printBoard(queensBoard)
+
+	fmt.Print("\n\n\n")
+
+	for i := 0; i < len(queensBoard); i++ {
+		queensBoard[i][i] = 1
 	}
 
-	for j := 0; j < len(ducks); j++ {
-		printDuckInfo(ducks[j])
-	}
-	// ducky := RubberDuck{}
-	// ducky.fillDefaults()
-	// printDuckInfo(ducky)
-	// fmt.Println()
-
-	// ducky.makeJavaScript()
-	// printDuckInfo(ducky)
-	// fmt.Println()
-
-	// deadDucky := &ducky
-
-	// deadDucky.kill()
-	// printDuckInfo(ducky)
-	// fmt.Println()
-
-	// otherDucky := &RubberDuck{name: "unknown"}
-	// fmt.Println(otherDucky)
+	printBoard(queensBoard)
 }
 
 func whyDidTheSeniorEngineerQuit() {
 	punchline := []string{"because", "he", "didn't", "get", "arrays"}
 
 	// slices do not store any data, they just point to the array of origin
-	punch := punchline[:2:4]
+	punch := punchline[:2:5]
+	line := make([]string, 20, 25)
+	// third argument is optional: capacity
+
+	// fmt.Println(len(punch))
+	// fmt.Println(cap(punch))
+	// fmt.Println(cap(punchline))
 
 	for i := 0; i < len(punch); i++ {
 		fmt.Print(punch[i] + " ")
@@ -143,6 +169,57 @@ func whyDidTheSeniorEngineerQuit() {
 	}
 
 	fmt.Println()
+
+	for i := range line {
+		line[i] = "ha "
+	}
+
+	for i, v := range line {
+		fmt.Println(i, v)
+	}
+
+	for _, v := range line {
+		fmt.Print(v + " ")
+	}
+
+	fmt.Println()
+}
+
+func getGroceryList() []string {
+	var userInput string
+	var shoppingList []string
+
+	fmt.Println("Add an item to the shopping list or hit x to exit")
+	fmt.Scanln(&userInput)
+
+	for userInput != "x" {
+		shoppingList = append(shoppingList, userInput)
+		fmt.Println("Add an item to the shopping list or hit x to exit")
+		fmt.Scanln(&userInput)
+	}
+
+	fmt.Println("returning to main function")
+	return shoppingList
+}
+
+func Pic(dx, dy int) [][]uint8 {
+	var picture [][]uint8
+
+	for y := 0; y < dy; y++ {
+		var row []uint8
+		uintX := uint8(y)
+
+		for x := 0; x < dx; x++ {
+			uintY := uint8(x)
+
+			result := uintX ^ uintY
+			row = append(row, result)
+		}
+
+		picture = append(picture, row)
+	}
+
+	return picture
 }
 
 // var c, python, java bool
@@ -162,5 +239,12 @@ func main() {
 	// fmt.Println(whenIsFriday())
 	// defer fmt.Println("Go runs on", goOperatingSystem())
 	// printTimeOfDay()
+	// shoppingList := getGroceryList()
+
+	// fmt.Println("Shopping list")
+	// fmt.Println("--------------------------")
+	// for i := 0; i < len(shoppingList); i++ {
+	// 	fmt.Println(shoppingList[i])
+	// }
 	whyDidTheSeniorEngineerQuit()
 }
