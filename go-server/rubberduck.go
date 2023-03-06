@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -10,6 +9,11 @@ type RubberDuck struct {
 	color        string
 	age          int
 	isJavaScript bool
+}
+
+type Bird interface {
+	isDead() bool
+	kill()
 }
 
 func (rubberDuck *RubberDuck) fillDefaults() {
@@ -68,29 +72,34 @@ func (rubberDuck *RubberDuck) isBaby() {
 	rubberDuck.age = 0
 }
 
-func (rubberDuck *RubberDuck) printAge() {
+func (rubberDuck *RubberDuck) getAge() string {
 	switch {
 	case rubberDuck.isDead():
-		fmt.Println("I am dead")
+		return "I am dead"
 	case rubberDuck.age == 1:
-		fmt.Println("I am", rubberDuck.age, "year old")
+		return "I am " + string(rubberDuck.age) + " year old"
 	case rubberDuck.age == 0:
-		fmt.Println("I am a newborn ducky")
+		return "I am a newborn ducky"
 	default:
-		fmt.Println("I am", rubberDuck.age, "years old")
+		return "I am " + string(rubberDuck.age) + " years old"
 	}
 }
 
-func printDuckInfo(rubberDuck RubberDuck) {
-	fmt.Println("Hi! My name is", rubberDuck.name)
-	rubberDuck.printAge()
-	fmt.Println("My feathers are", rubberDuck.color)
+func (rubberDuck RubberDuck) String() string {
+	name := "Hi! My name is " + rubberDuck.name + "\n"
+	age := rubberDuck.getAge() + "\n"
+	featherColor := "My feathers are " + rubberDuck.color + "\n"
+	isChosenOne := ""
 
 	if rubberDuck.isJavaScript && !rubberDuck.isDead() {
-		fmt.Println("And I am the chosen one")
+		isChosenOne = "And I am the chosen one\n\n"
 	} else {
-		fmt.Print("And that's it.\n\n")
+		isChosenOne = "And that's it.\n\n"
 	}
+
+	fullDuckInfo := name + age + featherColor + isChosenOne
+
+	return fullDuckInfo
 }
 
 func (rubberDuck *RubberDuck) growUp() {

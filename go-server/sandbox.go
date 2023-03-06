@@ -105,22 +105,25 @@ func playWithDucks() {
 	}
 
 	for j := 0; j < len(ducks); j++ {
-		printDuckInfo(ducks[j])
+		fmt.Println(ducks[j])
 	}
 	ducky := RubberDuck{}
 	ducky.fillDefaults()
-	printDuckInfo(ducky)
+	fmt.Println(ducky)
 	fmt.Println()
 
 	ducky.makeJavaScript()
-	printDuckInfo(ducky)
+	fmt.Println(ducky)
 	fmt.Println()
 
 	deadDucky := &ducky
 
 	deadDucky.kill()
-	printDuckInfo(ducky)
+	fmt.Println(ducky)
 	fmt.Println()
+
+	ducky.changeName("Fred")
+	fmt.Println("Now my name is", ducky.name)
 
 	otherDucky := &RubberDuck{name: "unknown"}
 	fmt.Println(*otherDucky)
@@ -280,6 +283,26 @@ func Pic(dx, dy int) [][]uint8 {
 	return picture
 }
 
+func typeSwitch(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("The length of \"%v\" is %v\n", v, len(v))
+	case RubberDuck:
+		fmt.Println("This interface is in the shape of a duck!")
+	default:
+		fmt.Println("Let me get back to you on that")
+	}
+}
+
+func funWithTypeSwitches() {
+	typeSwitch(32)
+	typeSwitch("IKEA sent me duplicates and I'm not happy")
+	typeSwitch(RubberDuck{})
+	typeSwitch(true)
+}
+
 // var c, python, java bool
 // var c, python, java = true, false, "no!"
 
@@ -305,5 +328,6 @@ func main() {
 	// 	fmt.Println(shoppingList[i])
 	// }
 	// whyDidTheSeniorEngineerQuit()
-	mapTheDucks()
+	// mapTheDucks()
+	playWithDucks()
 }
