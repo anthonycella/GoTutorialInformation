@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"runtime"
 	"sync"
-	"sync/atomic"
 )
 
 var wg sync.WaitGroup
@@ -325,103 +322,6 @@ var wg sync.WaitGroup
 // 	wg.Wait()
 // }
 
-func dataRacer() {
-	const raceCars = 100
-	counter := 0
-
-	wg.Add(raceCars)
-
-	for i := 0; i < raceCars; i++ {
-		go func() {
-			raceCar := counter
-			runtime.Gosched()
-
-			raceCar++
-			counter = raceCar
-			fmt.Println("Number of go routines:", runtime.NumGoroutine())
-			wg.Done()
-		}()
-	}
-
-	wg.Wait()
-
-	fmt.Println("Number of go routines:", runtime.NumGoroutine())
-	fmt.Println("Counter is", counter)
-}
-
-func mutexVsAliens() {
-	var mutex sync.Mutex
-
-	const raceCars = 100
-	counter := 0
-
-	wg.Add(raceCars)
-
-	for i := 0; i < raceCars; i++ {
-		go func() {
-			mutex.Lock()
-			raceCar := counter
-			runtime.Gosched()
-
-			raceCar++
-			counter = raceCar
-			fmt.Println("Number of go routines:", runtime.NumGoroutine())
-			mutex.Unlock()
-			wg.Done()
-		}()
-	}
-
-	wg.Wait()
-
-	fmt.Println("Number of go routines:", runtime.NumGoroutine())
-	fmt.Println("Counter is", counter)
-}
-
-func atomicPackageUser() {
-
-	const raceCars = 100
-	var counter int64
-
-	wg.Add(raceCars)
-
-	for i := 0; i < raceCars; i++ {
-		go func() {
-			atomic.AddInt64(&counter, 1)
-			fmt.Println("Counter is:", atomic.LoadInt64(&counter))
-			// runtime.Gosched()
-			fmt.Println("Number of go routines:", runtime.NumGoroutine())
-			wg.Done()
-		}()
-	}
-
-	wg.Wait()
-
-	fmt.Println("Number of go routines:", runtime.NumGoroutine())
-	fmt.Println("Counter is", counter)
-}
-
-func useChannels() {
-	c := make(chan int)
-
-	go send(c)
-	receive(c)
-
-	fmt.Println("About to exit")
-}
-
-func send(c chan<- int) {
-	for i := 14; i <= 113; i *= 2 {
-		c <- i
-	}
-	close(c)
-}
-
-func receive(c <-chan int) {
-	for v := range c {
-		fmt.Println(v)
-	}
-}
-
 // var c, python, java bool
 // var c, python, java = true, false, "no!"
 
@@ -448,5 +348,5 @@ func main() {
 	// }
 	// whyDidTheSeniorEngineerQuit()
 	// mapTheDucks()
-	useChannels()
+
 }
