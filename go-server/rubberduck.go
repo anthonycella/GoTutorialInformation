@@ -86,7 +86,7 @@ func (rubberDuck *RubberDuck) getAge() string {
 }
 
 func (rubberDuck RubberDuck) String() string {
-	name := "Hi! My name is " + rubberDuck.name + "\n"
+	name := "Hi! My name is" + rubberDuck.name + "\n"
 	age := rubberDuck.getAge() + "\n"
 	featherColor := "My feathers are " + rubberDuck.color + "\n"
 	isChosenOne := ""
