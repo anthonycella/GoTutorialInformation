@@ -104,9 +104,10 @@ func receive(c <-chan int, message string) {
 	for v := range c {
 		fmt.Println(message + fmt.Sprint(v))
 	}
+	wg.Done()
 }
 
-func receiveMultiple(even, odd, quit chan int) {
+func receiveMultipleEvenOdd(even, odd, quit chan int) {
 	for {
 		select {
 		case v := <-even:
@@ -150,12 +151,12 @@ func selectStatementExercise() {
 		quit <- 0
 	}()
 
-	receiveMultiple(even, odd, quit)
+	receiveMultipleEvenOdd(even, odd, quit)
 
 	fmt.Println("About to quit")
 }
 
-func fanIn(channelOne, channelTwo <-chan int) <-chan int {
+func fanIn(channelOne, channelTwo chan int) <-chan int {
 	returnChannel := make(chan int)
 
 	go func() {
@@ -171,4 +172,27 @@ func fanIn(channelOne, channelTwo <-chan int) <-chan int {
 	}()
 
 	return returnChannel
+}
+
+func receiveMultiple(channelOne chan int, messageOne string, channelTwo chan int, messageTwo string) {
+	wg.Add(2)
+	go receive(channelOne, messageOne)
+	go receive(channelTwo, messageTwo)
+}
+
+func main() {
+	fmt.Println("Channels file is working!")
+
+	channelOne := make(chan int)
+	channelTwo := make(chan int)
+
+	quit := make(chan int)
+	quit <- 0
+
+	go sendMultiple(channelOne, channelTwo)
+	fannedInChannel := fanIn(channelOne, channelTwo)
+
+	receive(fannedInChannel, "Fanned in channel value is: ")
+
+	wg.Wait()
 }
